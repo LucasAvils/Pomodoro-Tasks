@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Timer para Pomodoro e Gerenciador de Tarefas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <nav class="navbar is-light" role="navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item">
+          <img src="./images/tomato.png" alt="Tomato Icon">
+        </a>
+      </div>
+      <div id="nav"class = "navbar-menu is-active">
+        <div class="navbar-start">
+          <a id="PomodoroTimer" class="navbar-item">
+            Pomodoro Timer
+          </a>
+          <a id="Calendario" class="navbar-item">
+            Calendário
+          </a>
+          <a id="To-do" class="navbar-item">
+            To-do List
+          </a>
+        </div>
+      </div>
+    </nav>
+        <h1 id="Titulo" class="title">Pomodoro</h1>
+        <div class="buttons-breaks">
+          <button id="btnPomodoro" class = "button is-rounded is-responsive">Pomodoro</button>
+          <button id="btnSbreak" class = "button is-rounded is-responsive">Short Break</button>
+          <button id="btnLbreak" class = "button is-rounded is-responsive">Long Break</button>
+        </div>
+        <div class="box">
+          <p id = 'timer'>00:25:00</p>
+        </div>
+        <div id="buttons">
+          <button id="btnStart" class="button is-primary is-responsive">Start</button>
+          <button id="btnStop" class="button is-warning is-responsive">Stop</button>
+          <button id="btnReset" class="button is-light is-responsive">Reset</button>
+        </div>
+    </div>
+    <script src="render.js"></script>
+  </body>
+</html>
