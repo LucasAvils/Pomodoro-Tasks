@@ -8,6 +8,7 @@ body {
   max-width: 80%;
   -webkit-app-region: drag;
   background-color: #f9f9f9;
+  background-size: cover;
 }
 h1.title{
   text-align: center;

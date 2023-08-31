@@ -1,4 +1,4 @@
-const { ipcRenderer } = require("electron")
+const { ipcRenderer, Notification } = require("electron");
 
 // Pegando elementos do timer
 btnStart = document.getElementById("btnStart");
@@ -36,6 +36,7 @@ function atualizaTimer() {
 
   if (tempoIni < 0) {
     clearInterval(temporizador);
+    disparaNotificação();
   }
 }
 
@@ -46,18 +47,47 @@ function trocaTimer(estado) {
       atual = "Pomodoro";
       tempoIni = 1500;
       pomoTitle.innerText = "Pomodoro";
+      btnPomodoro.disabled = true;
+      btnLbreak.disabled = false;
+      btnSbreak.disabled = false;
+      atualizaTimer();
       break;
     case "Sbreak":
       atual = "Sbreak";
       tempoIni = 300;
       pomoTitle.innerText = "Short Break";
+      btnPomodoro.disabled = false;
+      btnLbreak.disabled = false;
+      btnSbreak.disabled = true;
+      atualizaTimer();
       break;
     case "Lbreak":
       atual = "Lbreak";
       tempoIni = 900;
       pomoTitle.innerText = "Long Break";
+      btnPomodoro.disabled = false;
+      btnLbreak.disabled = true;
+      btnSbreak.disabled = false;
+      atualizaTimer();
       break;
   }
+}
+
+function disparaNotificação() {
+  const NOTIFICATION_TITLE = "Seu Tempo Acabou!";
+  const NOTIFICATION_BODY = "Clique Aqui para começar seu próximo timer.";
+
+  notif = new window.Notification(NOTIFICATION_TITLE, {
+    body: NOTIFICATION_BODY,
+  }).onclick = () => {
+    if (atual == "Pomodoro") {
+      trocaTimer("Sbreak");
+      temporizador = setInterval(atualizaTimer, 1000);
+    } else {
+      trocaTimer("Pomodoro");
+      temporizador = setInterval(atualizaTimer, 1000);
+    }
+  };
 }
 
 //Essa função checa o estado atual e devolve o tempo para cada timer baseado no estado atual
@@ -87,35 +117,17 @@ btnReset.addEventListener("click", () => {
 });
 
 //event listener dos botões para os diferentes timers
-btnPomodoro.addEventListener("click", () => {
-  trocaTimer("Pomodoro");
-  btnPomodoro.disabled = true;
-  btnLbreak.disabled = false;
-  btnSbreak.disabled = false;
-  atualizaTimer();
-});
-btnLbreak.addEventListener("click", () => {
-  trocaTimer("Lbreak");
-  btnPomodoro.disabled = false;
-  btnLbreak.disabled = true;
-  btnSbreak.disabled = false;
-  atualizaTimer();
-});
-btnSbreak.addEventListener("click", () => {
-  trocaTimer("Sbreak");
-  btnPomodoro.disabled = false;
-  btnLbreak.disabled = false;
-  btnSbreak.disabled = true;
-  atualizaTimer();
-});
+btnPomodoro.addEventListener("click", () => trocaTimer("Pomodoro"));
+btnLbreak.addEventListener("click", () => trocaTimer("Lbreak"));
+btnSbreak.addEventListener("click", () => trocaTimer("Sbreak"));
 
 btnPomodoroTimer.addEventListener("click", () => {
-  ipcRenderer.send("Renderizar-Pomodoro-Timer",'index.html');
+  ipcRenderer.send("Renderizar-Pomodoro-Timer", "index.html");
 });
 btnCalendario.addEventListener("click", () => {
-  ipcRenderer.send("Renderizar-Calendario",'/Calendario/index.html');
+  ipcRenderer.send("Renderizar-Calendario", "/Calendario/index.html");
 });
 
 btnTodo.addEventListener("click", () => {
-  ipcRenderer.send("Renderizar-Todo",'/To-do/index.html');
+  ipcRenderer.send("Renderizar-Todo", "/To-do/index.html");
 });
