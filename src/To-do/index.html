@@ -4,8 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-do List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-    <h1>Você carergou a To-do List</h1>
+    <nav class="navbar is-light" role="navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <img src="../images/tomato.png" alt="Tomato Icon">
+          </a>
+        </div>
+        <div id="nav"class = "navbar-menu is-active">
+          <div class="navbar-start">
+            <a id="PomodoroTimer" class="navbar-item">
+              Pomodoro Timer
+            </a>
+            <a id="Calendario" class="navbar-item">
+              Calendário
+            </a>
+            <a id="To-do" class="navbar-item">
+              To-do List
+            </a>
+          </div>
+        </div>
+      </nav>
+      <div class="form">
+        <div class="inputs">
+            <label>Tarefa:</label>
+            <input class="input" type="text" name="Tarefa" id="tarefa-text" placeholder="Lavar as louças">
+            <label>Recorrências</label>
+            <input class="input" type="number" name="Recurrence" id="tarefa-Recurrence" placeholder="2"><label>Dias</label>
+        </div>
+        <div id = "Buttons-Todo">
+        <input class="button is-success" type="button" value="Submit" id="btnSubmit">
+        <input type="button" value="Deletar" class="button is-warning" onclick="clearStorage()">
+      </div>
+      </div>
+      <div class="checklist" id ="checklist">
+      </div>
+
+      <script src="index.js"></script>
 </body>
 </html>
