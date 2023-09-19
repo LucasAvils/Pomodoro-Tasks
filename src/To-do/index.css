@@ -34,3 +34,30 @@ body {
     display: flex;
     justify-content: space-between;
 }
+
+.checklist span{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-size: 17px;
+    position: absolute;
+    right:10%;
+    -webkit-app-region: no-drag;
+    text-align: center;
+    box-shadow: #000000 10px;
+}
+
+span:hover{
+    background: #cfc9c9;
+    cursor:pointer;
+    color: #000000;
+
+}
+input[type="checkbox"]{
+    margin-right: 40px;
+}
+
+label.checked{
+    text-decoration: line-through;
+    align-items: center;
+}
