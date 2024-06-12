@@ -13,7 +13,6 @@ pomoTitle = document.getElementById("Titulo");
 
 //pegando elementos de troca de página
 btnPomodoroTimer = document.getElementById("PomodoroTimer");
-btnCalendario = document.getElementById("Calendario");
 btnTodo = document.getElementById("To-do");
 
 let atual = "Pomodoro"; // Definindo o estado inicial(Pomodoro)
@@ -124,10 +123,6 @@ btnSbreak.addEventListener("click", () => trocaTimer("Sbreak"));
 btnPomodoroTimer.addEventListener("click", () => {
   ipcRenderer.send("Renderizar-Pomodoro-Timer", "index.html");
 });
-btnCalendario.addEventListener("click", () => {
-  ipcRenderer.send("Renderizar-Calendario", "/Calendario/index.html");
-});
-
 btnTodo.addEventListener("click", () => {
   ipcRenderer.send("Renderizar-Todo", "/To-do/index.html");
 });

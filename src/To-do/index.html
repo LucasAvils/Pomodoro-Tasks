@@ -19,9 +19,6 @@
             <a id="PomodoroTimer" class="navbar-item">
               Pomodoro Timer
             </a>
-            <a id="Calendario" class="navbar-item">
-              Calendário
-            </a>
             <a id="To-do" class="navbar-item">
               To-do List
             </a>
@@ -31,9 +28,7 @@
       <div class="form">
         <div class="inputs">
             <label>Tarefa:</label>
-            <input class="input" type="text" name="Tarefa" id="tarefa-text" placeholder="Lavar as louças">
-            <label>Recorrências</label>
-            <input class="input" type="number" name="Recurrence" id="tarefa-Recurrence" placeholder="2"><label>Dias</label>
+            <input class="input" type="text" name="Tarefa" id="tarefa-text" placeholder="Adicione uma Tarefa">
         </div>
         <div id = "Buttons-Todo">
         <input class="button is-success" type="button" value="Submit" id="btnSubmit">
@@ -41,6 +36,7 @@
       </div>
       </div>
       <div class="checklist" id ="checklist">
+        <ul id ="taskList"></ul>
       </div>
 
       <script src="index.js"></script>
