@@ -15,33 +15,29 @@ window.onload = function () {
   }
 };
 
-function saveData() {
-  const n = window.localStorage.length;
-  const data = {
-    Task: `${taskText.value}`,
-  };
-  const json = JSON.stringify(data);
+function getLastItem(){
+  const keys = Object.keys(localStorage);
+  if (keys.length === 0){
+    return 0
+  }
+  const numericKeys = keys.map(key => Number(key)).filter(key => !isNaN(key));
 
-  window.localStorage.setItem(n, json);
+  const highestKey = Math.max(...numericKeys);
+  
+  return highestKey
 }
 
 function loadCheckList() {
-  for (var i = 0; i < localStorage.length; i++) {
+  Object.keys(localStorage).forEach(key => {
     const taskList = document.getElementById("taskList")
-  
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
 
     const label = document.createElement("label");
-
-    task_n = localStorage.key(i);
     
-    data = JSON.parse(localStorage.getItem(task_n));
-    
-    checkbox.id = `task-${task_n}`;
-
+    data = JSON.parse(localStorage.getItem(key));
+  
     const listItem = document.createElement("li")
     listItem.textContent = data.Task
+    listItem.title = `${key}`
 
     const deleteButton = document.createElement("button")
     deleteButton.textContent = "X"
@@ -49,31 +45,30 @@ function loadCheckList() {
 
   deleteButton.addEventListener('click', function() {
     taskList.removeChild(listItem);
+    localStorage.removeItem(parseInt(listItem.title))
   });
   listItem.addEventListener("click",function(){
     listItem.classList.toggle("checked")
   });
 
-    const text = document.createTextNode(`${data.Task}`);
-    label.htmlFor = `task-${i}`;
-    label.className = ""
-
     taskList.appendChild(listItem);
     listItem.appendChild(deleteButton);
-  }
+  })
 }
 
 function loadElement() {
+
+  const data = {
+    Task: `${taskText.value}`,
+  };
+  const json = JSON.stringify(data);
+
   const taskList = document.getElementById("taskList")
-  
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  
-  const label = document.createElement("label");
-  checkbox.id = `task-${localStorage.length + 1}`;
   
   const listItem = document.createElement("li")
   listItem.textContent = taskText.value
+  n_li = parseInt(getLastItem()) + 1
+  listItem.title = `${n_li}`
 
   const deleteButton = document.createElement("button")
   deleteButton.textContent = "X"
@@ -81,17 +76,16 @@ function loadElement() {
 
   deleteButton.addEventListener('click', function() {
     taskList.removeChild(listItem);
+    localStorage.removeItem(parseInt(listItem.title))
   });
   listItem.addEventListener("click",function(){
     listItem.classList.toggle("checked")
   });
 
-  const text = document.createTextNode(`${taskText.value}`);
-  label.htmlFor = `task-${localStorage.length + 1}`;
-  label.className = ""
-
   taskList.appendChild(listItem);
   listItem.appendChild(deleteButton);
+
+  window.localStorage.setItem(n_li, json);
 
   taskText.value = ""
 }
@@ -101,7 +95,6 @@ function clearStorage() {
 }
 
 btnSubmit.addEventListener("click", () => {
-  saveData();
   loadElement();
 });
 
@@ -112,13 +105,4 @@ btnPomodoroTimer.addEventListener("click", () => {
 btnTodo.addEventListener("click", () => {
   ipcRenderer.send("Renderizar-Todo", "/To-do/index.html");
 });
-
-checkList.addEventListener("click",function(e){
-  if(e.target.tagName == "INPUT"){
-    id_target = e.target.id
-    task = document.getElementById(`${id_target}`)
-    label = document.querySelector(`label[for=${task.id}]`)
-    label.classList.toggle("checked")
-  }
-})
 
