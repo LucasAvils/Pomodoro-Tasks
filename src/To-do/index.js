@@ -92,6 +92,7 @@ function loadElement() {
 
 function clearStorage() {
   localStorage.clear();
+  document.getElementById("taskList").innerHTML = "";
 }
 
 btnSubmit.addEventListener("click", () => {
